@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Каталоги {% endblock %}
+{% block content %}
+    {% for i in catalog_list %}
+        <h3>{{i.name}}</h3>
+        {% for j in file_list %}
+            <ul>
+            {% if j.catalog.name == i.name %}
+                    <li><a href="{% url 'file' j.id %}">{{j.name}}</a></li>
+            {% endif %}
+            </ul>
+        {% endfor %}
+    {% endfor %}
+
+    <br><h2>Добавление новых файлов</h2>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" required="" placeholder="Имя файла" name = "name"></br></br>
+        <textarea type="text" cols="40" rows="10" required="" placeholder="Содержимое файла" name="text"></textarea></br></br>
+        <input type="text" placeholder="Расширение файла" name="extension"></br></br>
+        <input type="search" required="" placeholder="Каталог" name="catalog"></br></br>
+        <button type="submit">Добавить файл</button>
+
+    </form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Редактирование {{file.name}} {% endblock %}
+{% block content %}
+    <form action="{% url 'edit_done' file.id %}" method="POST">
+        {% csrf_token %}
+        <label>Имя файла: <input type="text" required="" placeholder= {{file.name}} name = "name"></label></br></br>
+        <label>Содержимое файла: <textarea type="text" cols="40" rows="10" required="" placeholder={{file.text}} name="text"></textarea></label></br></br>
+        <label>Расширение файла: <input type="text" placeholder={{file.extension}} name="extension"></label></br></br>
+        <label>Расположен в <input type="text" required="" placeholder={{file.catalog.name}} name="catalog"></label></br></br>
+        <label>Дата публикации:  <input type="datetime-local" placeholder={{file.pub_date}} name="pub_date"></label></br></br>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+{% endblock %}
